@@ -23,12 +23,22 @@ export default function AdminDashboard() {
   const router = useRouter();
 
   useEffect(() => {
+    const token = localStorage.getItem('admin-token');
+    if (!token) {
+      router.push('/admin/login');
+      return;
+    }
     fetchLeads();
-  }, []);
+  }, [router]);
 
   const fetchLeads = async () => {
     try {
-      const response = await fetch("/api/admin/leads");
+      const token = localStorage.getItem('admin-token');
+      const response = await fetch("/api/admin/leads", {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
       if (response.status === 401) {
         router.push("/admin/login");
         return;
@@ -48,7 +58,7 @@ export default function AdminDashboard() {
   };
 
   const handleLogout = () => {
-    document.cookie = "admin-token=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+    localStorage.removeItem('admin-token');
     router.push("/admin/login");
   };
 

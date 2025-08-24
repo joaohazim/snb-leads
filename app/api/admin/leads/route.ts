@@ -9,7 +9,8 @@ export const runtime = 'nodejs';
 export async function GET(request: NextRequest) {
   try {
     // Verificar autenticação
-    const token = request.cookies.get('admin-token')?.value;
+    const authHeader = request.headers.get('Authorization');
+    const token = authHeader?.replace('Bearer ', '');
     if (!token || !verifyToken(token)) {
       return NextResponse.json(
         { success: false, message: 'Não autorizado' },

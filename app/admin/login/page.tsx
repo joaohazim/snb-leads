@@ -28,10 +28,11 @@ export default function LoginPage() {
 
       if (response.ok) {
         const { token } = await response.json();
-        document.cookie = `admin-token=${token}; path=/; httpOnly=false; secure=${process.env.NODE_ENV === 'production'}; sameSite=strict; max-age=86400`;
-        router.push("/admin/dashboard");
+        localStorage.setItem('admin-token', token);
+        window.location.href = "/admin/dashboard";
       } else {
-        setError("Credenciais inválidas");
+        const errorData = await response.json();
+        setError(errorData.message || "Credenciais inválidas");
       }
     } catch {
       setError("Erro ao fazer login");
