@@ -41,10 +41,24 @@ export function ContactForm() {
   });
 
   const onSubmit = async (data: FormData) => {
-    // Simular envio do formulário
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    console.log("Form data:", data);
-    setIsSubmitted(true);
+    try {
+      const response = await fetch('/api/leads', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error('Erro ao enviar formulário');
+      }
+
+      setIsSubmitted(true);
+    } catch (error) {
+      console.error('Erro ao enviar formulário:', error);
+      alert('Erro ao enviar formulário. Tente novamente.');
+    }
   };
 
   if (isSubmitted) {
