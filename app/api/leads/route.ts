@@ -3,6 +3,8 @@ import { db } from '@/lib/db';
 import { leads } from '@/lib/db/schema';
 import { z } from 'zod';
 
+export const runtime = 'nodejs';
+
 const leadSchema = z.object({
   name: z.string().min(2),
   email: z.string().email(),
