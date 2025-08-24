@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Landing Page - Porto Algarve & Porto Riviera
 
-## Getting Started
+Landing page para captura de leads dos empreendimentos Porto Algarve e Porto Riviera em Porto de Galinhas.
 
-First, run the development server:
+## 🚀 Como executar
 
+1. **Instalar dependências**
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. **Executar em modo de desenvolvimento**
+```bash
+npm run dev
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. **Acessar no navegador**
+```
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🏗️ Tecnologias utilizadas
 
-## Learn More
+- Next.js 15
+- TypeScript
+- Tailwind CSS
+- shadcn/ui
+- React Hook Form
+- Zod (validação)
 
-To learn more about Next.js, take a look at the following resources:
+## 📋 Funcionalidades
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Apresentação dos dois empreendimentos
+- Exibição de preços em BRL, USD e Bitcoin
+- Formulário de captura de leads
+- Design responsivo
+- Otimizado para SEO
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 💰 Empreendimentos
 
-## Deploy on Vercel
+### Porto Algarve
+- Studios premium beira-mar
+- A partir de 25m²
+- R$ 350.000 | $ 70.000 | ₿ 0.72
+- ROI: 23-30% | Rental Yield: 15-18%
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Porto Riviera
+- Rooftop com piscina privativa
+- 100m² com 2 ou 3 quartos
+- R$ 550.000 | $ 110.000 | ₿ 1.13
+- ROI: 15-18%
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🔐 Parceria
+
+Open Doors + SNB Engenharia
