@@ -12,30 +12,60 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const [debugInfo, setDebugInfo] = useState("");
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     setError("");
+    setDebugInfo("Iniciando login...");
 
     try {
+      console.log("🔐 Starting login process", { username });
+      setDebugInfo("Chamando API de login...");
+
       const response = await fetch("/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),
       });
 
+      console.log("📡 API Response", { 
+        ok: response.ok, 
+        status: response.status,
+        headers: Object.fromEntries(response.headers.entries())
+      });
+
+      const responseData = await response.json();
+      console.log("📄 Response Data", responseData);
+
       if (response.ok) {
-        const { token } = await response.json();
-        localStorage.setItem('admin-token', token);
-        window.location.href = "/admin/dashboard";
+        setDebugInfo("Login bem-sucedido, salvando token...");
+        console.log("✅ Login successful, token:", responseData.token?.substring(0, 20) + "...");
+
+        try {
+          localStorage.setItem('admin-token', responseData.token);
+          console.log("💾 Token saved to localStorage");
+          setDebugInfo("Token salvo, redirecionando...");
+          
+          // Use Next.js router instead of window.location
+          await router.push("/admin/dashboard");
+          console.log("🚀 Redirected to dashboard");
+        } catch (storageError) {
+          console.error("❌ localStorage error:", storageError);
+          setError("Erro ao salvar token no navegador");
+          setDebugInfo("Erro: localStorage não disponível");
+        }
       } else {
-        const errorData = await response.json();
-        setError(errorData.message || "Credenciais inválidas");
+        console.log("❌ Login failed:", responseData);
+        setError(responseData.message || "Credenciais inválidas");
+        setDebugInfo(`Erro: ${response.status} - ${responseData.message}`);
       }
-    } catch {
-      setError("Erro ao fazer login");
+    } catch (fetchError) {
+      console.error("❌ Network error:", fetchError);
+      setError("Erro de conexão com o servidor");
+      setDebugInfo("Erro: Falha na conexão");
     } finally {
       setIsLoading(false);
     }
@@ -80,6 +110,12 @@ export default function LoginPage() {
           {error && (
             <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-2 rounded-md text-sm">
               {error}
+            </div>
+          )}
+
+          {debugInfo && (
+            <div className="bg-blue-50 border border-blue-200 text-blue-700 px-4 py-2 rounded-md text-sm">
+              <strong>Debug:</strong> {debugInfo}
             </div>
           )}
 
