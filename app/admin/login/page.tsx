@@ -49,9 +49,11 @@ export default function LoginPage() {
           console.log("💾 Token saved to localStorage");
           setDebugInfo("Token salvo, redirecionando...");
           
-          // Use Next.js router instead of window.location
-          await router.push("/admin/dashboard");
-          console.log("🚀 Redirected to dashboard");
+          // Force redirect with window.location as fallback for Next.js 15
+          setTimeout(() => {
+            window.location.href = "/admin/dashboard";
+          }, 100);
+          console.log("🚀 Redirecting to dashboard");
         } catch (storageError) {
           console.error("❌ localStorage error:", storageError);
           setError("Erro ao salvar token no navegador");
