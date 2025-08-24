@@ -23,11 +23,17 @@ export default function AdminDashboard() {
   const router = useRouter();
 
   useEffect(() => {
+    console.log("🔍 Dashboard: Checking authentication");
     const token = localStorage.getItem('admin-token');
+    console.log("🎫 Dashboard: Token found:", !!token, token?.substring(0, 20) + "...");
+    
     if (!token) {
+      console.log("❌ Dashboard: No token found, redirecting to login");
       router.push('/admin/login');
       return;
     }
+    
+    console.log("✅ Dashboard: Token found, fetching leads");
     fetchLeads();
   }, [router]);
 
