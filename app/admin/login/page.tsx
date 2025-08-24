@@ -63,17 +63,9 @@ export default function LoginPage() {
           console.log("🚀 Starting redirect to dashboard");
           console.log("📍 Current pathname:", window.location.pathname);
           
-          // Try multiple redirect methods
-          try {
-            router.refresh();
-            await router.push("/admin/dashboard");
-            console.log("✅ Router.push completed");
-          } catch (routerError) {
-            console.error("❌ Router.push failed:", routerError);
-            // Fallback to window.location
-            console.log("🔄 Falling back to window.location");
-            window.location.replace("/admin/dashboard");
-          }
+          // Simple redirect without async/await
+          console.log("🔄 Using window.location for redirect");
+          window.location.href = "/admin/dashboard";
           
           setDebugInfo("Redirecionamento iniciado...");
           
